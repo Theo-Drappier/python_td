@@ -22,8 +22,17 @@ class Connection:
         cursor.execute(query)
 
         for c in cursor:
-            print c.id, c.cpu, c.memory
+            print c[0], c[1], c[2]
 
+        cursor.close()
+
+    def insertRow(self, newRow):
+        memory = newRow['memory'][0] / 1024
+        cpu = newRow['cpu']
+        insertQuery = "INSERT INTO " + self._table + " (cpu, memory) VALUES (" + str(cpu) + ", " + str(memory) + ")"
+        cursor = self._cnx.cursor()
+        cursor.execute(insertQuery)
+        self._cnx.commit()
         cursor.close()
 
     def closeConnect(self):

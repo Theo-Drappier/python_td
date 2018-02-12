@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 from flask import Flask
 from flask import request
+import json
 
-from python_td.models.Connection import Connection
+from models.Connection import Connection
 
 app = Flask(__name__)
 
@@ -16,8 +17,9 @@ def hello():
 def firstPost():
     if request.method == 'POST':
         data = request.data
+        dataJson = json.loads(data)
         cnx = Connection('metrics')
-        cnx.selectAll()
+        cnx.insertRow(dataJson)
         cnx.closeConnect()
 
 
