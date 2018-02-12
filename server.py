@@ -2,7 +2,7 @@
 from flask import Flask
 from flask import request
 
-from myvirtualenv.models.Connection import Connection
+from python_td.models.Connection import Connection
 
 app = Flask(__name__)
 
@@ -18,6 +18,7 @@ def firstPost():
         data = request.data
         cnx = Connection('metrics')
         cnx.selectAll()
+        cnx.closeConnect()
 
 
 if __name__ == '__main__':
