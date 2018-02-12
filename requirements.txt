@@ -1,0 +1,4 @@
+flask == 0.12.2
+requests == 2.18.4
+psutil == 5.4.3
+mysql-connector-python-rf == 2.2.2
