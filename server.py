@@ -16,14 +16,19 @@ def index():
     return render_template('index.html', allHost=allHost)
 
 
-@app.route('/<name>')
-def hello(name=None):
+@app.route('/chartHost', methods=['POST'])
+def hello():
+    name = request.form['hostname']
     cnx = Connection('metrics')
-    lastMetrics = cnx.selectByHost('ubuntu')[0]
+    lastMetrics = cnx.selectByHost(name)[0]
+    cpuUsed = lastMetrics[0]
+    cpuFree = 100.0 - cpuUsed
     memories = lastMetrics[1]
     memoryFree = memories[1] / (1024.0**3)
+    memoryFree = "%.2f" % memoryFree
     memoryUsed = memories[3] / (1024.0**3)
-    return render_template('index.html', name=name, memoryFree=memoryFree, memoryUsed=memoryUsed)
+    memoryUsed = "%.2f" % memoryUsed
+    return render_template('chartHost.html', name=name, memoryFree=memoryFree, memoryUsed=memoryUsed, cpuUsed=cpuUsed, cpuFree=cpuFree)
 
 
 @app.route('/post', methods=['POST'])

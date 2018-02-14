@@ -11,12 +11,13 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse bg-inverse">
-      <h1 class="navbar-brand mb-0">ChartPython</h1>
+      <a href="/" class="navbar-brand mb-0">ChartPython</a>
     </nav>
-    <br>
+    <a href="/" style="float: right; margin-right: 15px;"><button class="btn btn-primary">Retour</button></a>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <h2>{{ name }}</h2>
                 <div class="card">
                     <div class="card-header">
                         CPU
@@ -30,13 +31,13 @@
                                   var myChart = new Chart(ctx, {
                                       type: 'doughnut',
                                       data: {
-                                          labels: ["Mémoire libre (Go)", "Mémoire utilisé (Go)"],
+                                          labels: ["CPU libre (%)", "CPU utilisé (%)"],
                                           datasets: [{
-                                              label: 'Mémoire actuelle',
-                                              data: [{{ memoryFree }}, {{ memoryUsed }}],
+                                              label: 'CPU',
+                                              data: [{{ cpuFree }}, {{ cpuUsed }}],
                                               backgroundColor: [
                                                   'rgba(51, 153, 255, 1)',
-                                                  'rgba(255, 255, 255, 1)'
+                                                  'rgba(215, 40, 40, 1)'
                                               ]
                                           }]
                                       }
@@ -69,7 +70,7 @@
                                               data: [{{ memoryFree }}, {{ memoryUsed }}],
                                               backgroundColor: [
                                                   'rgba(51, 153, 255, 1)',
-                                                  'rgba(255, 255, 255, 1)'
+                                                  'rgba(215, 40, 40, 1)'
                                               ]
                                           }]
                                       }
