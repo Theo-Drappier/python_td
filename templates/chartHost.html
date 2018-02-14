@@ -7,6 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="../static/js/moment.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 </head>
 <body>
@@ -44,6 +45,50 @@
                                   });
                                 </script>
                             </div>
+                            <div class="col-md-6">
+                                <canvas id="cpuLine"></canvas>
+                                <script>
+                                    var ctx = document.getElementById("cpuLine");
+                                    var config = {
+                                        type: 'line',
+                                        data: {
+                                            labels: [
+                                            {% for metrics in allMetrics %}
+                                                "{{ metrics[5] }}",
+                                            {% endfor %}
+                                            ],
+                                            datasets: [{
+                                                label: "My First dataset",
+                                                backgroundColor: 'rgba(0, 0, 0, 1)',
+                                                borderColor: 'rgba(51, 153, 255, 1)',
+                                                fill: false,
+                                                data: [
+                                                    {% for metrics in allMetrics %}
+                                                        "{{ metrics[0] }}",
+                                                    {% endfor %}
+                                                ],
+                                            },
+                                        ]},
+                                        options: {
+                                            responsive: true,
+                                            title:{
+                                                display:true,
+                                                text:'Chart.js Line Chart - Logarithmic'
+                                            },
+                                            scales: {
+                                                xAxes: [{
+                                                    display: true,
+                                                }],
+                                                yAxes: [{
+                                                    display: true,
+                                                    type: 'logarithmic',
+                                                }]
+                                            }
+                                        }
+                                    };
+                                    var myChart = new Chart(ctx, config);
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -75,6 +120,50 @@
                                           }]
                                       }
                                   });
+                                </script>
+                            </div>
+                            <div class="col-md-6">
+                                <canvas id="memoryLine"></canvas>
+                                <script>
+                                    var ctx = document.getElementById("memoryLine");
+                                    var config = {
+                                        type: 'line',
+                                        data: {
+                                            labels: [
+                                            {% for metrics in allMetrics %}
+                                                "{{ metrics[5] }}",
+                                            {% endfor %}
+                                            ],
+                                            datasets: [{
+                                                label: "My First dataset",
+                                                backgroundColor: 'rgba(0, 0, 0, 1)',
+                                                borderColor: 'rgba(51, 153, 255, 1)',
+                                                fill: false,
+                                                data: [
+                                                    {% for metrics in allMetrics %}
+                                                        "{{ metrics[1][2] }}",
+                                                    {% endfor %}
+                                                ],
+                                            },
+                                        ]},
+                                        options: {
+                                            responsive: true,
+                                            title:{
+                                                display:true,
+                                                text:'Chart.js Line Chart - Logarithmic'
+                                            },
+                                            scales: {
+                                                xAxes: [{
+                                                    display: true,
+                                                }],
+                                                yAxes: [{
+                                                    display: true,
+                                                    type: 'logarithmic',
+                                                }]
+                                            }
+                                        }
+                                    };
+                                    var myChart = new Chart(ctx, config);
                                 </script>
                             </div>
                         </div>
