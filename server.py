@@ -21,6 +21,7 @@ def firstPost():
         cnx = Connection('metrics')
         cnx.insertRow(dataJson)
         cnx.closeConnect()
+        return True
 
 
 if __name__ == '__main__':

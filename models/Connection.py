@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from mysql import connector
 import json
-
+import datetime
 
 class Connection:
     _cnx = ()
@@ -28,7 +28,7 @@ class Connection:
         cursor.close()
 
     def insertRow(self, newRow):
-        insertQuery = "INSERT INTO " + self._table + " (cpu, memory, disks, name, os) VALUES (%(cpu)s, %(memory)s, %(disks)s, %(hostname)s, %(os)s)"
+        insertQuery = "INSERT INTO " + self._table + " (cpu, memory, disks, name, os, daTime) VALUES (%(cpu)s, %(memory)s, %(disks)s, %(hostname)s, %(os)s, NOW())"
         cursor = self._cnx.cursor()
         cursor.execute(insertQuery, newRow)
         self._cnx.commit()
