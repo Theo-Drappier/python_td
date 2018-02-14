@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import request
 import json
+from flask import render_template
 
 from models.Connection import Connection
 
@@ -9,8 +10,9 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello():
-    return "<h1><small>Hello World !</small></h1>"
+@app.route('/<name>')
+def hello(name=None):
+    return render_template('index.html', name=name)
 
 
 @app.route('/post', methods=['POST'])
