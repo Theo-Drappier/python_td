@@ -36,3 +36,39 @@ class Connection:
 
     def closeConnect(self):
         self._cnx.close()
+
+    def selectAllHost(self):
+        query = "SELECT DISTINCT name FROM metrics;"
+        cursor = self._cnx.cursor()
+        cursor.execute(query)
+        arrayHost = []
+        for c in cursor:
+            arrayHost.append(c)
+        cursor.close()
+        return arrayHost
+
+    def selectByHost(self, host):
+        query = "SELECT cpu, memory, disks, os, name, daTime FROM metrics WHERE name = '" + host + "' ORDER BY daTime DESC;"
+        cursor = self._cnx.cursor()
+        cursor.execute(query)
+        arrayMetrics = []
+        i = 0
+        for row in cursor:
+            arrayMetrics.append([])
+            for c in row:
+                try:
+                    jsonC = json.loads(c)
+                except ValueError as e:
+                    jsonC = c
+                    print e
+                except TypeError as e:
+                    jsonC = c
+                    print e
+                finally:
+                    arrayMetrics[i].append(jsonC)
+            i+=1
+        cursor.close()
+        return arrayMetrics
+
+
+

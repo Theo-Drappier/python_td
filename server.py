@@ -12,7 +12,13 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/<name>')
 def hello(name=None):
-    return render_template('index.html', name=name)
+    cnx = Connection('metrics')
+    allHost = cnx.selectAllHost()
+    lastMetrics = cnx.selectByHost('ubuntu')[0]
+    memories = lastMetrics[1]
+    memoryFree = memories[1] / (1024.0**3)
+    memoryUsed = memories[3] / (1024.0**3)
+    return render_template('index.html', name=name, memoryFree=memoryFree, memoryUsed=memoryUsed)
 
 
 @app.route('/post', methods=['POST'])
