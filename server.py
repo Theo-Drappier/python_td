@@ -10,10 +10,15 @@ app = Flask(__name__)
 
 
 @app.route('/')
+def index():
+    cnx = Connection('metrics')
+    allHost = cnx.selectAllHost()
+    return render_template('index.html', allHost=allHost)
+
+
 @app.route('/<name>')
 def hello(name=None):
     cnx = Connection('metrics')
-    allHost = cnx.selectAllHost()
     lastMetrics = cnx.selectByHost('ubuntu')[0]
     memories = lastMetrics[1]
     memoryFree = memories[1] / (1024.0**3)
