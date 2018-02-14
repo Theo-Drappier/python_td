@@ -28,11 +28,6 @@ class Connection:
         cursor.close()
 
     def insertRow(self, newRow):
-        hostname = newRow['hostname']
-        disks = newRow['disks']
-        os = newRow['os']
-        memory = newRow['memory']
-        cpu = newRow['cpu']
         insertQuery = "INSERT INTO " + self._table + " (cpu, memory, disks, name, os) VALUES (%(cpu)s, %(memory)s, %(disks)s, %(hostname)s, %(os)s)"
         cursor = self._cnx.cursor()
         cursor.execute(insertQuery, newRow)
