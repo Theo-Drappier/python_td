@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <canvas id="cpuDonut"></canvas>
                                 <script>
                                   var ctx = document.getElementById("cpuDonut");
@@ -45,7 +45,7 @@
                                   });
                                 </script>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <canvas id="cpuLine"></canvas>
                                 <script>
                                     var ctx = document.getElementById("cpuLine");
@@ -58,7 +58,7 @@
                                             {% endfor %}
                                             ],
                                             datasets: [{
-                                                label: "My First dataset",
+                                                label: "Historique CPU (%)",
                                                 backgroundColor: 'rgba(0, 0, 0, 1)',
                                                 borderColor: 'rgba(51, 153, 255, 1)',
                                                 fill: false,
@@ -73,15 +73,20 @@
                                             responsive: true,
                                             title:{
                                                 display:true,
-                                                text:'Chart.js Line Chart - Logarithmic'
+                                                text:"Historique du CPU (en % d'utilisation)"
                                             },
                                             scales: {
                                                 xAxes: [{
                                                     display: true,
+
                                                 }],
                                                 yAxes: [{
                                                     display: true,
-                                                    type: 'logarithmic',
+                                                    ticks: {
+                                                        max: 110,
+                                                        min: 0,
+                                                        stepSize: 10
+                                                    }
                                                 }]
                                             }
                                         }
@@ -96,13 +101,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card" style="margin-top: 20px;">
                     <div class="card-header">
                         Mémoire
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <canvas id="memoireDonut"></canvas>
                                 <script>
                                   var ctx = document.getElementById("memoireDonut");
@@ -122,7 +127,7 @@
                                   });
                                 </script>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7">
                                 <canvas id="memoryLine"></canvas>
                                 <script>
                                     var ctx = document.getElementById("memoryLine");
@@ -135,7 +140,7 @@
                                             {% endfor %}
                                             ],
                                             datasets: [{
-                                                label: "My First dataset",
+                                                label: "Historique mémoire (%)",
                                                 backgroundColor: 'rgba(0, 0, 0, 1)',
                                                 borderColor: 'rgba(51, 153, 255, 1)',
                                                 fill: false,
@@ -150,7 +155,7 @@
                                             responsive: true,
                                             title:{
                                                 display:true,
-                                                text:'Chart.js Line Chart - Logarithmic'
+                                                text:"Historique de la mémoire (en % d'utilisation)"
                                             },
                                             scales: {
                                                 xAxes: [{
@@ -158,7 +163,11 @@
                                                 }],
                                                 yAxes: [{
                                                     display: true,
-                                                    type: 'logarithmic',
+                                                    ticks: {
+                                                        max: 110,
+                                                        min: 0,
+                                                        stepSize: 10
+                                                    }
                                                 }]
                                             }
                                         }

@@ -48,7 +48,7 @@ class Connection:
         return arrayHost
 
     def selectByHost(self, host):
-        query = "SELECT cpu, memory, disks, os, name, daTime FROM metrics WHERE name = '" + host + "' ORDER BY daTime ASC LIMIT 5;"
+        query = "SELECT cpu, memory, disks, os, name, daTime FROM metrics WHERE name = '" + host + "' ORDER BY daTime ASC LIMIT 4;"
         cursor = self._cnx.cursor()
         cursor.execute(query)
         arrayMetrics = []
