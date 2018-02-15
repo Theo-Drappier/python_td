@@ -20,15 +20,20 @@ def index():
 def hello():
     name = request.form['hostname']
     cnx = Connection('metrics')
-    allMetrics = cnx.selectByHost(name)
-    lastMetrics = allMetrics[-1]
-    cpuUsed = lastMetrics[0]
-    cpuFree = 100.0 - cpuUsed
-    memories = lastMetrics[1]
-    memoryFree = memories[1] / (1024.0**3)
-    memoryFree = "%.2f" % memoryFree
-    memoryUsed = memories[3] / (1024.0**3)
-    memoryUsed = "%.2f" % memoryUsed
+    try:
+        allMetrics = cnx.selectByHost(name)
+        lastMetrics = allMetrics[-1]
+        cpuUsed = lastMetrics[0]
+        cpuFree = 100.0 - cpuUsed
+        memories = lastMetrics[1]
+        memoryFree = memories[1] / (1024.0**3)
+        memoryFree = "%.2f" % memoryFree
+        memoryUsed = memories[3] / (1024.0**3)
+        memoryUsed = "%.2f" % memoryUsed
+    except IOError as e:
+        print e
+    finally:
+        cnx.closeConnect()
     return render_template('chartHost.html', name=name, memoryFree=memoryFree, memoryUsed=memoryUsed, cpuUsed=cpuUsed, cpuFree=cpuFree, allMetrics=allMetrics)
 
 
@@ -38,8 +43,13 @@ def firstPost():
         data = request.data
         dataJson = json.loads(data)
         cnx = Connection('metrics')
-        cnx.insertRow(dataJson)
-        cnx.closeConnect()
+        try:
+            cnx.insertRow(dataJson)
+        except IOError as e:
+            print e
+            return False
+        finally:
+            cnx.closeConnect()
         return True
 
 
