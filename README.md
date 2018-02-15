@@ -9,7 +9,7 @@ Il faut créer la base de données prog_agent_v0 et importer le fichier prog_age
 Dans le fichier models/Connection.py, rentrez vos informations de base de données (utilisateurs, mdp et url).
 
 Dernière étape :
-FLASK_APP=server.py flask run
+FLASK_APP=server.py flask run.
 Si vous voulez ajouter des données de votre hôte, il faut run index.py
 
 Well done. L'application devrait fonctionné.
